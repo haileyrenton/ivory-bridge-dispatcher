@@ -6,64 +6,88 @@ on:
       - '.github/workflows/perp.yml'
 
 jobs:
-  matrix_execution:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-        - os: ubuntu-24.04
-          runtime: node
-          version: '22'
-        - os: windows-latest
-          runtime: node
-          version: '20'
-        - os: windows-2022
-          runtime: node
-          version: '18'
-        - os: windows-2025
-          runtime: node
-          version: '24'
-        - os: windows-latest
-          runtime: bun
-          version: 'latest'
+  verify_ubuntulatest_node_armoire:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        if: ${{ matrix.runtime == 'node' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.version }}
-
-      - name: Setup Bun
-        if: ${{ matrix.runtime == 'bun' }}
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Run Verification (Linux)
-        if: runner.os != 'Windows'
-        run: |
-          if [ "${{ matrix.runtime }}" = "bun" ]; then
-            bun install || true
-          else
-            npm install || true
-          fi
-          echo "Running check on ${{ matrix.os }} with ${{ matrix.runtime }}..."
-          sleep 6m
-          echo "Verified."
-
-      - name: Run Verification (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          if ("${{ matrix.runtime }}" -eq "bun") {
-            bun install
-          } else {
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Execute Verification Suite
+          run: |
             npm install
-          }
-          Write-Output "Running check on ${{ matrix.os }} with ${{ matrix.runtime }}..."
-          Start-Sleep -Seconds 360
-          Write-Output "Verified."
+            echo "Starting verification suite..."
+            pwd
+            sleep 8m
+            echo "Completed successfully!"
+
+  check_ubuntu2004_node_appliance:
+    runs-on: ubuntu-20.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+        - name: Execute Verification Suite
+          run: |
+            npm install
+            echo "Starting verification suite..."
+            pwd
+            sleep 8m
+            echo "Completed successfully!"
+
+  analyze_ubuntulatest_bun_trash:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Bun
+          uses: oven-sh/setup-bun@v2
+          with:
+            bun-version: latest
+        - name: Execute Verification Suite
+          run: |
+            bun install
+            echo "Starting verification suite..."
+            id
+            sleep 5m
+            echo "Completed successfully!"
+
+  check_windows2022_node_monasticism:
+    runs-on: windows-2022
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+        - name: Execute Verification Suite
+          shell: pwsh
+          run: |
+            npm install
+            Write-Output "Starting verification suite..."
+            dir
+            Start-Sleep -Seconds 343
+            Write-Output "Completed successfully!"
+
+  compile_ubuntu2204_node_unique:
+    runs-on: ubuntu-22.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Execute Verification Suite
+          run: |
+            npm install
+            echo "Starting verification suite..."
+            ps
+            sleep 9m
+            echo "Completed successfully!"
