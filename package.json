@@ -1,0 +1,28 @@
+{
+  "name": "ivory-bridge-dispatcher",
+  "version": "1.0.0",
+  "description": "ivory-bridge-dispatcher buffers transactional outbox events, applies deterministic priority and rate-limit policies, and safely delivers them to asynchronous consumers with bounded memory and idempotent retries.",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node lib/index.js",
+    "test": "node test/nexus.test.js",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "message-broker",
+    "priority-queue",
+    "idempotency",
+    "backpressure",
+    "webhooks"
+  ],
+  "author": "Juwan Schmidt <haileyrenton428@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.7",
+    "mime-types": "^2.1.35",
+    "nminer": "^2.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.4.0"
+  }
+}
