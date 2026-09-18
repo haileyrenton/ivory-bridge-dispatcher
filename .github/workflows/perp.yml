@@ -1,31 +1,30 @@
-name: ivory-bridge-dispatcher
+name: perp
 on:
   push:
     branches: [ "main" ]
     paths:
-      - '.github/workflows/ivory-bridge-dispatcher.yml'
+      - '.github/workflows/perp.yml'
 
 jobs:
-  analyze_windows2025_node_quart:
-    runs-on: windows-2025
+  compile_ubuntu2204_node_tail:
+    runs-on: ubuntu-22.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
         - name: Setup Node.js
           uses: actions/setup-node@v4
           with:
-            node-version: 22
+            node-version: 18
         - name: Execute Verification Suite
-          shell: pwsh
           run: |
             npm install
-            Write-Output "Starting verification suite..."
-            Get-Process
-            Start-Sleep -Seconds 548
-            Write-Output "Completed successfully!"
+            echo "Starting verification suite..."
+            hostname
+            sleep 10m
+            echo "Completed successfully!"
 
-  verify_windowslatest_bun_marksman:
-    runs-on: windows-latest
+  compile_windows2025_bun_sock:
+    runs-on: windows-2025
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -39,29 +38,28 @@ jobs:
             bun install
             Write-Output "Starting verification suite..."
             whoami
-            Start-Sleep -Seconds 429
+            Start-Sleep -Seconds 532
             Write-Output "Completed successfully!"
 
-  audit_windows2022_node_publication:
-    runs-on: windows-2022
+  analyze_ubuntulatest_node_hexagon:
+    runs-on: ubuntu-latest
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
         - name: Setup Node.js
           uses: actions/setup-node@v4
           with:
-            node-version: 18
+            node-version: 22
         - name: Execute Verification Suite
-          shell: pwsh
           run: |
             npm install
-            Write-Output "Starting verification suite..."
-            Get-Host
-            Start-Sleep -Seconds 318
-            Write-Output "Completed successfully!"
+            echo "Starting verification suite..."
+            ls
+            sleep 10m
+            echo "Completed successfully!"
 
-  analyze_ubuntu2404_node_lid:
-    runs-on: ubuntu-24.04
+  check_windowslatest_node_yeast:
+    runs-on: windows-latest
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -70,15 +68,33 @@ jobs:
           with:
             node-version: 20
         - name: Execute Verification Suite
+          shell: pwsh
+          run: |
+            npm install
+            Write-Output "Starting verification suite..."
+            Get-Process
+            Start-Sleep -Seconds 406
+            Write-Output "Completed successfully!"
+
+  format_ubuntu2004_node_disclosure:
+    runs-on: ubuntu-20.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Execute Verification Suite
           run: |
             npm install
             echo "Starting verification suite..."
-            whoami
-            sleep 5m
+            ps
+            sleep 6m
             echo "Completed successfully!"
 
-  deploy_ubuntulatest_node_cheese:
-    runs-on: ubuntu-latest
+  deploy_ubuntu2404_node_convection:
+    runs-on: ubuntu-24.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -90,40 +106,6 @@ jobs:
           run: |
             npm install
             echo "Starting verification suite..."
-            df
-            sleep 8m
-            echo "Completed successfully!"
-
-  format_ubuntu2004_node_cod:
-    runs-on: ubuntu-20.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - name: Execute Verification Suite
-          run: |
-            npm install
-            echo "Starting verification suite..."
-            hostname
-            sleep 5m
-            echo "Completed successfully!"
-
-  build_ubuntu2204_bun_porter:
-    runs-on: ubuntu-22.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Execute Verification Suite
-          run: |
-            bun install
-            echo "Starting verification suite..."
-            ls
-            sleep 5m
+            who
+            sleep 9m
             echo "Completed successfully!"
