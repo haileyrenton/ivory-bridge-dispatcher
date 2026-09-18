@@ -12,42 +12,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
+        - os: windows-2022
+          runtime: bun
+          version: 'latest'
         - os: windows-2025
           runtime: node
-          version: '22'
-        - os: windows-latest
-          runtime: node
-          version: '18'
-        - os: ubuntu-latest
+          version: '20'
+        - os: ubuntu-20.04
           runtime: node
           version: '24'
-        - os: windows-2022
-          runtime: bun
-          version: 'latest'
-        - os: ubuntu-24.04
-          runtime: node
-          version: '20'
         - os: ubuntu-22.04
           runtime: node
-          version: '20'
-        - os: ubuntu-20.04
-          runtime: bun
-          version: 'latest'
-        - os: windows-2022
-          runtime: node
           version: '18'
         - os: ubuntu-latest
           runtime: node
-          version: '24'
-        - os: ubuntu-24.04
-          runtime: node
           version: '22'
-        - os: windows-latest
-          runtime: node
-          version: '18'
-        - os: ubuntu-20.04
-          runtime: node
-          version: '20'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
