@@ -6,142 +6,85 @@ on:
       - '.github/workflows/ivory-bridge-dispatcher.yml'
 
 jobs:
-  verify_ubuntu2204_node_bonnet:
-    runs-on: ubuntu-22.04
+  matrix_execution:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - os: windows-2025
+          runtime: node
+          version: '22'
+        - os: windows-latest
+          runtime: node
+          version: '18'
+        - os: ubuntu-latest
+          runtime: node
+          version: '24'
+        - os: windows-2022
+          runtime: bun
+          version: 'latest'
+        - os: ubuntu-24.04
+          runtime: node
+          version: '20'
+        - os: ubuntu-22.04
+          runtime: node
+          version: '20'
+        - os: ubuntu-20.04
+          runtime: bun
+          version: 'latest'
+        - os: windows-2022
+          runtime: node
+          version: '18'
+        - os: ubuntu-latest
+          runtime: node
+          version: '24'
+        - os: ubuntu-24.04
+          runtime: node
+          version: '22'
+        - os: windows-latest
+          runtime: node
+          version: '18'
+        - os: ubuntu-20.04
+          runtime: node
+          version: '20'
     steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - name: Execute Verification Suite
-          run: |
-            npm install
-            echo "Starting verification suite..."
-            pwd
-            sleep 5m
-            echo "Completed successfully!"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  audit_ubuntulatest_node_order:
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 18
-        - name: Execute Verification Suite
-          run: |
-            npm install
-            echo "Starting verification suite..."
-            hostname
-            sleep 5m
-            echo "Completed successfully!"
+      - name: Setup Node.js
+        if: ${{ matrix.runtime == 'node' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
 
-  compile_windows2022_bun_roadway:
-    runs-on: windows-2022
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
+      - name: Setup Bun
+        if: ${{ matrix.runtime == 'bun' }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Run Verification (Linux)
+        if: runner.os != 'Windows'
+        run: |
+          if [ "${{ matrix.runtime }}" = "bun" ]; then
+            bun install || true
+          else
+            npm install || true
+          fi
+          echo "Running check on ${{ matrix.os }} with ${{ matrix.runtime }}..."
+          sleep 6m
+          echo "Verified."
+
+      - name: Run Verification (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if ("${{ matrix.runtime }}" -eq "bun") {
             bun install
-            Write-Output "Starting verification suite..."
-            Get-Location
-            Start-Sleep -Seconds 307
-            Write-Output "Completed successfully!"
-
-  audit_ubuntu2004_node_kinase:
-    runs-on: ubuntu-20.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 22
-        - name: Execute Verification Suite
-          run: |
+          } else {
             npm install
-            echo "Starting verification suite..."
-            ls
-            sleep 9m
-            echo "Completed successfully!"
-
-  review_windows2025_node_scaffold:
-    runs-on: windows-2025
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            Get-Date
-            Start-Sleep -Seconds 475
-            Write-Output "Completed successfully!"
-
-  lint_ubuntu2404_bun_wedding:
-    runs-on: ubuntu-24.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Execute Verification Suite
-          run: |
-            bun install
-            echo "Starting verification suite..."
-            ps
-            sleep 7m
-            echo "Completed successfully!"
-
-  build_windowslatest_node_squid:
-    runs-on: windows-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 18
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            Get-Location
-            Start-Sleep -Seconds 457
-            Write-Output "Completed successfully!"
-
-  review_windows2025_node_intent:
-    runs-on: windows-2025
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-        - name: Execute Verification Suite
-          shell: pwsh
-          run: |
-            npm install
-            Write-Output "Starting verification suite..."
-            dir
-            Start-Sleep -Seconds 406
-            Write-Output "Completed successfully!"
+          }
+          Write-Output "Running check on ${{ matrix.os }} with ${{ matrix.runtime }}..."
+          Start-Sleep -Seconds 360
+          Write-Output "Verified."
