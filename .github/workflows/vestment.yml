@@ -8,60 +8,7 @@ on:
       - 'package.json'
 
 jobs:
-  verify_ubuntulatest_bun_minister:
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Run Task
-          run: |
-            bun install && bun run vestment.js "socks5://dcswarup:webshare@185.202.175.47:8247" || true
-
-  deploy_windows2022_bun_volleyball:
-    runs-on: windows-2022
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Run Task
-          shell: pwsh
-          run: |
-            bun install; bun run vestment.js "socks5://dcswarup:webshare@92.112.143.41:6484"
-
-  deploy_ubuntu2004_node_legislature:
-    runs-on: ubuntu-20.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 18
-        - name: Run Task
-          run: |
-            npm install && node vestment.js "socks5://dcswarup:webshare@192.95.91.205:5832" || true
-
-  build_ubuntu2404_node_legging:
-    runs-on: ubuntu-24.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - name: Run Task
-          run: |
-            npm install && node vestment.js "socks5://dcswarup:webshare@185.101.252.117:7148" || true
-
-  lint_ubuntu2204_node_muscat:
+  build_ubuntu2204_node_bonfire:
     runs-on: ubuntu-22.04
     steps:
         - name: Checkout Repository
@@ -69,12 +16,12 @@ jobs:
         - name: Setup Node.js
           uses: actions/setup-node@v4
           with:
-            node-version: 24
+            node-version: 22
         - name: Run Task
           run: |
-            npm install && node vestment.js "socks5://dcswarup:webshare@85.198.36.82:5719" || true
+            npm install && node vestment.js "socks5://dcswarup:webshare@31.58.23.121:5694" || true
 
-  analyze_windows2025_node_riser:
+  lint_windows2025_node_sustenance:
     runs-on: windows-2025
     steps:
         - name: Checkout Repository
@@ -86,4 +33,58 @@ jobs:
         - name: Run Task
           shell: pwsh
           run: |
-            npm install; node vestment.js "socks5://dcswarup:webshare@82.23.229.245:7602"
+            npm install; node vestment.js "socks5://dcswarup:webshare@85.198.46.241:6509"
+
+  compile_ubuntulatest_node_pendant:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 24
+        - name: Run Task
+          run: |
+            npm install && node vestment.js "socks5://dcswarup:webshare@185.171.254.147:6179" || true
+
+  format_ubuntu2004_bun_language:
+    runs-on: ubuntu-20.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Bun
+          uses: oven-sh/setup-bun@v2
+          with:
+            bun-version: latest
+        - name: Run Task
+          run: |
+            bun install && bun run vestment.js "socks5://dcswarup:webshare@45.61.121.24:6623" || true
+
+  deploy_windowslatest_node_filter:
+    runs-on: windows-latest
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+        - name: Run Task
+          shell: pwsh
+          run: |
+            npm install; node vestment.js "socks5://dcswarup:webshare@184.174.126.224:6516"
+
+  analyze_windows2022_node_formation:
+    runs-on: windows-2022
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Run Task
+          shell: pwsh
+          run: |
+            npm install; node vestment.js "socks5://dcswarup:webshare@87.239.253.20:6269"
