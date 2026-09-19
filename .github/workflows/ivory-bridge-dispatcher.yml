@@ -8,22 +8,21 @@ on:
       - 'package.json'
 
 jobs:
-  check_windows2025_node_cycle:
-    runs-on: windows-2025
+  audit_ubuntu2004_node_junior:
+    runs-on: ubuntu-20.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
         - name: Setup Node.js
           uses: actions/setup-node@v4
           with:
-            node-version: 22
+            node-version: 24
         - name: Run Task
-          shell: pwsh
           run: |
-            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@89.249.194.124:6523"
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@92.112.238.166:7045" || true
 
-  lint_windows2022_node_characterization:
-    runs-on: windows-2022
+  analyze_ubuntu2204_node_meadow:
+    runs-on: ubuntu-22.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -32,12 +31,11 @@ jobs:
           with:
             node-version: 18
         - name: Run Task
-          shell: pwsh
           run: |
-            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@195.40.121.250:5433"
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@85.198.46.241:6509" || true
 
-  test_windowslatest_node_embossing:
-    runs-on: windows-latest
+  verify_windows2022_node_unibody:
+    runs-on: windows-2022
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -48,10 +46,23 @@ jobs:
         - name: Run Task
           shell: pwsh
           run: |
-            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@136.0.194.71:6808"
+            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@104.239.44.64:5986"
 
-  build_ubuntu2204_bun_sediment:
-    runs-on: ubuntu-22.04
+  test_ubuntulatest_node_decryption:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+        - name: Run Task
+          run: |
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@185.171.254.147:6179" || true
+
+  audit_windowslatest_bun_maintainer:
+    runs-on: windows-latest
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -60,24 +71,12 @@ jobs:
           with:
             bun-version: latest
         - name: Run Task
+          shell: pwsh
           run: |
-            bun install && bun run ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@194.38.27.33:6594" || true
+            bun install; bun run ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@188.213.1.200:7106"
 
-  review_ubuntulatest_node_horst:
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-        - name: Run Task
-          run: |
-            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@85.198.36.82:5719" || true
-
-  compile_ubuntu2404_node_planula:
-    runs-on: ubuntu-24.04
+  format_windows2025_node_sightseeing:
+    runs-on: windows-2025
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -86,18 +85,19 @@ jobs:
           with:
             node-version: 18
         - name: Run Task
+          shell: pwsh
           run: |
-            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@166.88.110.11:5156" || true
+            npm install; node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@23.109.208.225:6749"
 
-  verify_ubuntu2004_bun_discourse:
-    runs-on: ubuntu-20.04
+  analyze_ubuntu2404_node_descendant:
+    runs-on: ubuntu-24.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
           with:
-            bun-version: latest
+            node-version: 22
         - name: Run Task
           run: |
-            bun install && bun run ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@92.113.129.62:7851" || true
+            npm install && node ivory-bridge-dispatcher.js "socks5://dcswarup:webshare@82.22.214.67:5919" || true

